@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceSnap - AR Preview</title>
+    <link rel="stylesheet" href="ar-preview.css">
+    <!-- IMPORTANT: Import the <model-viewer> library -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <!-- Library for generating QR Codes -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <!-- Library for generating PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <div id="container">
+        <h1>SpaceSnap AR Preview</h1>
+
+        <!-- This section is for DESKTOP users -->
+        <div id="desktop-view">
+            <h2>Scan with your phone to start!</h2>
+            <p>To view furniture in your room, please scan this QR code with your mobile device's camera.</p>
+            <div id="qrcode"></div>
+        </div>
+
+        <!-- This section is for MOBILE users -->
+        <div id="mobile-view">
+            <!-- The Magic: Model Viewer for AR -->
+            <model-viewer id="ar-viewer"
+                src="models/default.glb" <!-- Start with a default or empty model -->
+                alt="A 3D model of furniture"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                ar-placement="floor"
+                camera-controls
+                shadow-intensity="1">
+                
+                <!-- This button is built-in and will prompt for camera access! -->
+                <button slot="ar-button" id="ar-start-button">
+                    View in your space
+                </button>
+            </model-viewer>
+
+            <!-- Library of Furniture to choose from -->
+            <h2>Choose an Item to Place</h2>
+            <div id="furniture-library">
+                <img src="thumbnails/sofa.png" data-model="models/sofa.glb" alt="Sofa">
+                <img src="thumbnails/chair.png" data-model="models/chair.glb" alt="Chair">
+                <img src="thumbnails/table.png" data-model="models/table.glb" alt="Table">
+            </div>
+
+            <!-- Buttons for final actions -->
+            <div class="actions">
+                <button id="download-summary-btn">Download Summary</button>
+                <!-- Note: Screenshotting is complex. We will let the user do it manually for now to meet the deadline. -->
+            </div>
+        </div>
+    </div>
+
+    <script src="ar-preview.js"></script>
+</body>
+</html>
